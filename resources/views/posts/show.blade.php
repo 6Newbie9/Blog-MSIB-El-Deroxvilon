@@ -26,6 +26,11 @@
             </a>
         </div>
 
+        <div class="mb-4">
+            <strong>Author:</strong> 
+            <span class="text-blue-600">{{ $post->author->name }}</span> <!-- Menampilkan author -->
+        </div>
+
         <a href="{{ route('posts.index') }}" class="inline-block bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-400 transition mb-4">Back to Posts</a>
     </div>
 @endsection

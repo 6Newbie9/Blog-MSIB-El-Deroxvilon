@@ -21,13 +21,10 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* Light Mode */
         body.light-mode {
             background-color: #ffffff;
             color: #212529;
         }
-
         .navbar.light-mode,
         .footer.light-mode {
             background-color: #f8f9fa;
@@ -44,7 +41,6 @@
             color: #ffffff;
             /* Warna putih untuk teks pada night mode */
         }
-
         span.light-mode {
             color: #3b3b3b;
         }

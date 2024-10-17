@@ -23,6 +23,7 @@
                                     <a href="{{ route('posts.show', $post->id) }}" class="hover:underline">{{ $post->title }}</a>
                                 </h6>
                                 <p class="text-gray-600">in category <span class="font-semibold">{{ $post->category->name }}</span></p>
+                                <p class="text-gray-600">by <span class="font-semibold">{{ $post->author->name }}</span></p> <!-- Menampilkan author -->
                                 <p>
                                     Status:
                                     <span class="badge {{ $post->is_published ? 'bg-green-500 text-white' : 'bg-gray-400 text-white' }} px-2 py-1 rounded">
