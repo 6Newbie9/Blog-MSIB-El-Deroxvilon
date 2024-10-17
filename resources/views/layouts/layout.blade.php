@@ -9,66 +9,109 @@
     <title>Blog MSIB - Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         html {
             height: 100%;
         }
-
+    
         body {
             min-height: 100%;
             display: flex;
             flex-direction: column;
         }
-
+    
+        .light-mode p,
+        .light-mode h1 {
+            color: #000000;
+        }
+    
+    
         body.light-mode {
             background-color: #FAF7F0;
             color: #212529;
         }
-
+    
         .navbar.light-mode,
         .footer.light-mode {
             background-color: #ffedd5;
-            /* Peach light */
             color: #2c3e50;
-            /* Dark slate gray */
         }
-
+    
         .card.light-mode {
             background-color: #D8D2C2;
             color: #212529;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .card.night-mode p {
-            color: #ffffff;
-        }
-
+    
         span.light-mode {
             color: #3b3b3b;
         }
-
+    
+        .light-mode a {
+            color: black;
+        }
+    
+        .dropdownMenu.light-mode {
+            background-color: #ffe4c4;
+            color: #3b3b3b;
+            border: 1px solid #e0e0e0;
+        }
+    
+        .light-mode #mainFooter {
+            background-color: #ffe4c4;
+            color: #2c3e50;
+        }
+    
         body.night-mode {
             background-color: #2c2c2c;
             color: #f8f9fa;
         }
-
-        .light-mode a {
-            color: black;
-        }
-
+    
         .navbar.night-mode,
         .footer.night-mode {
             background-color: #343a40;
             color: #f8f9fa;
         }
-
+    
         .card.night-mode {
             background-color: #3b3b3b;
-            color: #f8f9fa;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
         }
-
+    
+        .card.night-mode p {
+            color: #ffffff;
+        }
+    
+        .card.night-mode input {
+            color: #000000;
+        }
+    
+        .night-mode a {
+            color: #c0c0c0;
+        }
+    
+        .night-mode p,
+        .night-mode h1 {
+            color: #ffffff;
+            text-shadow:
+                -1px -1px 0 #000000,
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000;
+        }
+    
+    
+        .dropdownMenu.night-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+            border: 1px solid #444444;
+        }
+    
+        .night-mode #mainFooter {
+            background-color: #35383f;
+            color: white;
+        }
+    
         .mode-toggle {
             cursor: pointer;
             padding: 5px 10px;
@@ -77,41 +120,17 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
-
+    
         .mode-toggle:hover {
             background-color: #0056b3;
         }
-
-        .dropdownMenu.light-mode {
-            background-color: #ffe4c4;
-            color: #3b3b3b;
-            border: 1px solid #e0e0e0;
-        }
-
-        .dropdownMenu.night-mode {
-            background-color: #343a40;
-            color: #f8f9fa;
-            border: 1px solid #444444;
-        }
-
+    
         #mainFooter {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100px;
             margin-top: auto;
-        }
-
-        .night-mode #mainFooter {
-            background-color: #35383f;
-            color: white;
-        }
-
-        .light-mode #mainFooter {
-            background-color: #ffe4c4;
-            /* Bisque */
-            color: #2c3e50;
-            /* Dark slate gray */
         }
     </style>
 </head>
@@ -122,16 +141,29 @@
         <div class="container mx-auto flex items-center justify-between">
             <a class="text-lg font-bold" href="#!">Blog MSIB</a>
             <div class="flex items-center space-x-6">
+                <ul class="hidden md:flex space-x-4">
+                    <li><a class="hover:text-gray-400" href="{{ route('dashboard') }}">Home</a></li>
+                    <li><a class="hover:text-gray-400" href="/categories">Kategori</a></li>
+                    <li><a class="hover:text-gray-400" href="/posts">Post Artikel</a></li>
+                    <li><a class="hover:text-gray-400" href="/users">User</a></li>
+                </ul>
                 <div class="relative">
                     <button class="block text-white hover:text-gray-400" id="dropdownButton">
-                        <span id="accountText">Dashboard</span>
+                        <span id="accountText">Account</span>
                     </button>
                     <div id="dropdownMenu"
                         class="dropdownMenu absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 hidden">
-                        <a href="{{ route('login') }}"
-                            class="block px-4 py-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-700">Login</a>
-                        <a href="{{ route('register') }}"
-                            class="block px-4 py-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-700">Register</a>
+                        <a href="{{ route('profile.edit') }}"
+                            class="block px-4 py-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-700">Profile</a>
+
+                        <!-- Form for Logout -->
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-700">
+                                Logout
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <button class="mode-toggle ml-3" onclick="toggleMode()">
@@ -142,17 +174,6 @@
     </nav>
     {{-- {{ $slot }}  --}}
     <div class="container mx-auto max-w-full">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
         @yield('content')
     </div>
     <!-- Footer-->

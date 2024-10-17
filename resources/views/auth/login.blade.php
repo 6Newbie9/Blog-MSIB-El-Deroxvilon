@@ -1,4 +1,4 @@
-@extends('layouts.guestapp')
+@extends('layouts.guest')
 
 @section('content')
     <!-- Session Status -->

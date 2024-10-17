@@ -1,4 +1,4 @@
-@extends('layouts.guestapp')
+@extends('layouts.guest')
 
 @section('content')
     <div class="card mb-4 p-4 rounded shadow w-[70%] mt-[10%] mx-auto">

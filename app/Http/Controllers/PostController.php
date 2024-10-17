@@ -65,21 +65,25 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean',
             'category_id' => 'required|exists:categories,id',
-            'author_id' => 'required|exists:users,id', // Validasi untuk author_id
+            'author_id' => 'required|exists:users,id',
         ]);
 
         $data = $request->all();
+
         if ($request->hasFile('image')) {
             if ($post->image) {
                 Storage::disk('public')->delete($post->image);
             }
             $data['image'] = $request->file('image')->store('posts', 'public');
+        } else {
+            $data['image'] = $post->image;
         }
 
         $post->update($data);
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
+
 
     public function destroy(Post $post)
     {
@@ -88,5 +92,15 @@ class PostController extends Controller
         }
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $categories = Category::where('name', 'like', "%$query%")->get();
+        $posts = Post::where('title', 'like', "%$query%")
+            ->orWhere('content', 'like', "%$query%")
+            ->get();
+
+        return view('search-results', compact('categories', 'posts', 'query'));
     }
 }

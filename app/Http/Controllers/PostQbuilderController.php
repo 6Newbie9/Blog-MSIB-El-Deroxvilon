@@ -121,5 +121,4 @@ class PostQbuilderController extends Controller
             return redirect()->route('posts.index')->with('error', $err->getMessage());
         }
     }
-
 }
